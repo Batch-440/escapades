@@ -1,3 +1,6 @@
+[![CI](https://github.com/Batch-440/cyckle/actions/workflows/ci.yml/badge.svg)](https://github.com/Batch-440/cyckle/actions/workflows/ci.yml)
+------
+
 # escapades
 Find your next travel buddies.
 
