@@ -47,7 +47,9 @@ jobs:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Yarn install
-        run: yarn install --frozen-lockfile
+        run: |
+          cd escapades_backend
+          yarn install --frozen-lockfile
       - name: Prepare DB
         run: |
           cd escapades_backend
