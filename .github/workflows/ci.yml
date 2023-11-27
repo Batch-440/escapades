@@ -58,14 +58,22 @@ jobs:
           bundle exec rails db:create db:migrate
         # if we use rspec tags (js, flaky, quarantine)
       - name: Run RSpec tests
-        run: bundle exec rspec -f d --tag ~js --tag ~flaky --tag ~quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag ~js --tag ~flaky --tag ~quarantine
       - name: Run RSpec JS tests
-        run: bundle exec rspec -f d --tag js --tag ~flaky --tag ~quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag js --tag ~flaky --tag ~quarantine
       - name: Run RSpec flaky tests
-        run: bundle exec rspec -f d --tag flaky
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag flaky
         continue-on-error: true
       - name: Run RSpec quarantine tests
-        run: bundle exec rspec -f d --tag quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag quarantine
         continue-on-error: true
       - name: Run Vitest tests
-        run: cd .. && cd escapades_frontend && yarn test
+        run: cd escapades_frontend && yarn test
