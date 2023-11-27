@@ -49,7 +49,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Prepare DB
         run: |
-          cp config/database.github.yml config/database.yml
+          cp escapades_backend/config/database.github.yml escapades_backend/config/database.yml
+          cd escapades_backend
           bundle exec rails db:create db:migrate
 			# if we use rspec tags (js, flaky, quarantine)
       - name: Run RSpec tests
@@ -63,4 +64,4 @@ jobs:
         run: bundle exec rspec -f d --tag quarantine
         continue-on-error: true
 			- name: Run Vitest tests
-        run: yarn test
+        run: cd .. && escapades_frontend && yarn test
