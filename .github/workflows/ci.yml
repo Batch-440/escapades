@@ -52,7 +52,7 @@ jobs:
           cp escapades_backend/config/database.github.yml escapades_backend/config/database.yml
           cd escapades_backend
           bundle exec rails db:create db:migrate
-			# if we use rspec tags (js, flaky, quarantine)
+        # if we use rspec tags (js, flaky, quarantine)
       - name: Run RSpec tests
         run: bundle exec rspec -f d --tag ~js --tag ~flaky --tag ~quarantine
       - name: Run RSpec JS tests
