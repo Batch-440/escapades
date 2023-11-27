@@ -63,5 +63,5 @@ jobs:
       - name: Run RSpec quarantine tests
         run: bundle exec rspec -f d --tag quarantine
         continue-on-error: true
-			- name: Run Vitest tests
+      - name: Run Vitest tests
         run: cd .. && cd escapades_frontend && yarn test
