@@ -31,6 +31,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
         with:
+          ruby-version: 3.1.2
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Set up Node
