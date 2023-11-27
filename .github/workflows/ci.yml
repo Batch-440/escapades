@@ -51,6 +51,9 @@ jobs:
           cd escapades_backend
           yarn install --frozen-lockfile
           bundle install
+          cd ..
+          cd escapades_frontend
+          yarn install --frozen-lockfile
       - name: Prepare DB
         run: |
           cd escapades_backend
