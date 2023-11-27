@@ -50,8 +50,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Prepare DB
         run: |
-          cp escapades_backend/config/database.github.yml escapades_backend/config/database.yml
           cd escapades_backend
+          cp config/database.github.yml config/database.yml
           bundle exec rails db:create db:migrate
         # if we use rspec tags (js, flaky, quarantine)
       - name: Run RSpec tests
