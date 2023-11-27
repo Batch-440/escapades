@@ -31,12 +31,13 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
         with:
+          ruby-version: 3.1.2
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "20.5.1"
       - name: Get Yarn cache directory path
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -45,23 +46,37 @@ jobs:
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      - name: Yarn install
-        run: yarn install --frozen-lockfile
+      - name: Yarn install & bundle install
+        run: |
+          cd escapades_backend
+          yarn install --frozen-lockfile
+          bundle install
+          cd ..
+          cd escapades_frontend
+          yarn install --frozen-lockfile
       - name: Prepare DB
         run: |
-          cp escapades_backend/config/database.github.yml escapades_backend/config/database.yml
           cd escapades_backend
+          cp config/database.github.yml config/database.yml
           bundle exec rails db:create db:migrate
-			# if we use rspec tags (js, flaky, quarantine)
+        # if we use rspec tags (js, flaky, quarantine)
       - name: Run RSpec tests
-        run: bundle exec rspec -f d --tag ~js --tag ~flaky --tag ~quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag ~js --tag ~flaky --tag ~quarantine
       - name: Run RSpec JS tests
-        run: bundle exec rspec -f d --tag js --tag ~flaky --tag ~quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag js --tag ~flaky --tag ~quarantine
       - name: Run RSpec flaky tests
-        run: bundle exec rspec -f d --tag flaky
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag flaky
         continue-on-error: true
       - name: Run RSpec quarantine tests
-        run: bundle exec rspec -f d --tag quarantine
+        run: |
+          cd escapades_backend
+          bundle exec rspec -f d --tag quarantine
         continue-on-error: true
-			- name: Run Vitest tests
-        run: cd .. && cd escapades_frontend && yarn test
+      - name: Run Vitest tests
+        run: cd escapades_frontend && yarn test
