@@ -1,0 +1,31 @@
+.nav {
+  position: sticky;
+  top: 0px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+  z-index: 9999;
+}
+
+.nav a {
+  color: inherit
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 2rem;
+}
+
+.active {
+  background-color: white;
+  color: #333
+}

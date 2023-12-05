@@ -1,11 +1,21 @@
-import classes from "./App.module.scss";
+import Navbar from "./NavBar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home/Home";
+import Register from "./Register";
+import Trip from "./Trip";
 
 const App = () => {
   return (
-    <div className={classes.App}>
-      <h1 className="text-3xl bold underline">escapades</h1>
-      <p>find the right trip with the right team.</p>
-    </div>
+      <div>
+        <Navbar></Navbar>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/trip" element={<Trip/>}/>
+          </Routes>
+        </div>
+      </div>
   );
 }
 
