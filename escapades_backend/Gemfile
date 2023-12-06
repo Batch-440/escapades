@@ -32,6 +32,10 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+gem "devise", "~> 4.9"
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
+
 group :development, :test do
   gem "pry"
   gem "factory_bot_rails"
@@ -49,5 +53,3 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
-
-gem "devise", "~> 4.9"
