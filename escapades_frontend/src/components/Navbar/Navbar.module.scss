@@ -1,0 +1,17 @@
+.Navbar {
+  @apply sticky top-0 text-white flex justify-between items-center gap-8 pl-4 z-[9999];
+  background-color: #333;
+
+  &__link {
+    @apply flex gap-4 p-4 text-sm sm:text-base;
+  }
+
+  &__title {
+    @apply text-sm sm:text-2xl;
+  }
+}
+
+.active {
+  background-color: white;
+  color: #333;
+}

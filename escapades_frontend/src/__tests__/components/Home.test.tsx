@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Home from "@/components/Home/Home";
+import Home from "@/pages/Home/Home";
 
 describe("<Home />", () => {
   it("should render successfully", () => {
@@ -9,7 +9,7 @@ describe("<Home />", () => {
 
   it("should have title message visible", () => {
     render(<Home />);
-    const title = screen.queryByText(/Your next trip is waiting for you/)
+    const title = screen.queryByText(/Your next trip is waiting for you/);
     expect(title).toBeVisible();
   });
 });
