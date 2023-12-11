@@ -320,5 +320,8 @@ Devise.setup do |config|
       ['DELETE', %r{^/logout$}]
     ]
     jwt.expiration_time = 30.minutes.to_i
-end
+  end
+
+  # debug undefined local variable or method `flash' for #<Devise::SessionsController
+  config.navigational_formats = []
 end
