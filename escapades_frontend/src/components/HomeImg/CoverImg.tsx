@@ -8,11 +8,11 @@ type CoverCardProps = {
 
 const CoverCard: FC<CoverCardProps> = ({ url, text }) => {
   return (
-    <div>
+    <>
       <div className={classes.imgContainer} style={{ backgroundImage: url }}>
         <h1 className={classes.imgContainer__title}>{text}</h1>
       </div>
-    </div>
+    </>
   );
 };
 
