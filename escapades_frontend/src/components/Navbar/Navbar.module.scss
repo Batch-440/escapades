@@ -3,8 +3,9 @@
           sm:h-16;
 
   &__link {
-    @apply fixed left-[66%] top-[-100%] flex-col gap-4 p-4 text-sm w-[100%] bg-gray-800 transition duration-150
+    @apply fixed left-[66%] top-[-100%] flex-col gap-4 p-4 text-sm w-[100%] bg-gray-800
             sm:static sm:flex sm:left-auto sm:top-auto sm:flex-row sm:text-base sm:w-auto;
+    transition: 300ms;
   }
 
   &__linkActive {
