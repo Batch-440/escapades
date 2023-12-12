@@ -1,11 +1,11 @@
-import classes from "./App.module.scss";
+import AuthProvider from "@/provider/authProvider";
+import Routes from "@/routes";
 
-const App = () => {
+function App() {
   return (
-    <div className={classes.App}>
-      <h1 className="text-3xl bold underline">escapades</h1>
-      <p>find the right trip with the right team.</p>
-    </div>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
 
