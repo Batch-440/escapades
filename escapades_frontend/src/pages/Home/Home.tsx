@@ -1,10 +1,10 @@
-import CoverCard from "@/components/HomeBanner/HomeBanner";
+import HomeBanner from "@/components/HomeBanner/HomeBanner";
 import home from "@/assets/home.jpg";
 
 const Home = () => {
   return (
     <>
-      <CoverCard
+      <HomeBanner
         imageUrl={`url(${home})`}
         text={"Your next trip is waiting for you"}
       />
