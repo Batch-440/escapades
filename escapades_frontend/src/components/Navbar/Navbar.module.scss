@@ -2,14 +2,20 @@
   @apply sticky top-0 text-white bg-gray-800 flex justify-between items-center gap-8 pl-4 z-[9999] h-8
           sm:h-16;
 
-  &__link {
-    @apply fixed left-[66%] top-[-100%] flex-col gap-4 p-4 text-sm w-[100%] bg-gray-800
+  &__links {
+    @apply fixed right-0 top-[-100%] flex-col gap-4 p-4 text-sm  bg-gray-800
             sm:static sm:flex sm:left-auto sm:top-auto sm:flex-row sm:text-base sm:w-auto;
     transition: 300ms;
-  }
 
-  &__linkActive {
-    @apply bg-white text-gray-800;
+    &__open {
+      @apply top-8;
+    }
+
+    &__link {
+      &__active {
+        @apply bg-white text-gray-800;
+      }
+    }
   }
 
   &__title {
@@ -19,9 +25,5 @@
   &__icons {
     @apply visible p-2 cursor-pointer
             sm:hidden sm:p-0;
-  }
-
-  &__open {
-    @apply top-8;
   }
 }

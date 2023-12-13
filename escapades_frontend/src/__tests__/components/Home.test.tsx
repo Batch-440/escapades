@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
+import renderer from "react-test-renderer";
 import Home from "@/pages/Home/Home";
 
 describe("<Home />", () => {
-  it("should render successfully", () => {
-    const { baseElement } = render(<Home />);
-    expect(baseElement).toBeTruthy();
+  it("matches last screenshot", () => {
+    const tree = renderer.create(<Home />);
+    expect(tree).toMatchSnapshot();
   });
 
   it("should have title message visible", () => {

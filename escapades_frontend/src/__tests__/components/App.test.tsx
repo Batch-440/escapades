@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import App from "@/pages/App";
+import App from "@/components/App";
 import { BrowserRouter } from "react-router-dom";
 
 describe("<App />", () => {

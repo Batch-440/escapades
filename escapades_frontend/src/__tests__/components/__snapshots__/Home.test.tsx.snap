@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Home /> > matches last screenshot 1`] = `
+<div
+  className="_imgContainer_0e51f0"
+  style={
+    {
+      "backgroundImage": "url(/src/assets/home.jpg)",
+    }
+  }
+>
+  <h1
+    className="_imgContainer__title_0e51f0"
+  >
+    Your next trip is waiting for you
+  </h1>
+</div>
+`;

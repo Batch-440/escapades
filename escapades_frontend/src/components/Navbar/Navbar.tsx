@@ -4,17 +4,17 @@ import classes from "./Navbar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-type NavBarLinkProps = {
+interface NavBarLinkProps {
   to: string;
   children: string;
-};
+}
 
 const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
   const resolvedPath = useResolvedPath(to);
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
   return (
-    <li className={isActive ? classes.Navbar__linkActive : ""}>
+    <li className={isActive ? classes.Navbar__links__link__active : ""}>
       <Link to={to}>{children}</Link>
     </li>
   );
@@ -28,14 +28,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`${classes.Navbar}`}>
+    <nav className={classes.Navbar}>
       <Link to="/" className={classes.Navbar__title}>
         Escapades
       </Link>
       <ul
         onClick={toggleIsMenuOpen}
-        className={`${classes.Navbar__link} ${
-          isMenuOpen ? classes.Navbar__open : ""
+        className={`${classes.Navbar__links} ${
+          isMenuOpen ? classes.Navbar__links__open : ""
         }`}
       >
         <NavbarLink to="/register">register</NavbarLink>
