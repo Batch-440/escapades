@@ -1,12 +1,20 @@
-import classes from "./App.module.scss";
+import Navbar from "@/components/Navbar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "@/pages/Home/Home";
+import Register from "@/pages/Register";
+import Trip from "@/pages/Trip";
 
 const App = () => {
   return (
-    <div className={classes.App}>
-      <h1 className="text-3xl bold underline">escapades</h1>
-      <p>find the right trip with the right team.</p>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/trip" element={<Trip />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
