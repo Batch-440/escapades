@@ -8,14 +8,9 @@ interface HomeBannerProps {
 
 const HomeBanner: FC<HomeBannerProps> = ({ imageUrl, text }) => {
   return (
-    <>
-      <div
-        className={classes.imgContainer}
-        style={{ backgroundImage: imageUrl }}
-      >
-        <h1 className={classes.imgContainer__title}>{text}</h1>
-      </div>
-    </>
+    <div className={classes.HomeBanner} style={{ backgroundImage: imageUrl }}>
+      <h1 className={classes.HomeBanner__title}>{text}</h1>
+    </div>
   );
 };
 

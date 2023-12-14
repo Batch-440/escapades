@@ -2,7 +2,7 @@
 
 exports[`<Home /> > matches last screenshot 1`] = `
 <div
-  className="_imgContainer_0e51f0"
+  className="_HomeBanner_0e51f0"
   style={
     {
       "backgroundImage": "url(/src/assets/home.jpg)",
@@ -10,7 +10,7 @@ exports[`<Home /> > matches last screenshot 1`] = `
   }
 >
   <h1
-    className="_imgContainer__title_0e51f0"
+    className="_HomeBanner__title_0e51f0"
   >
     Your next trip is waiting for you
   </h1>
