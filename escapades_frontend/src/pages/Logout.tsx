@@ -8,7 +8,7 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setToken();
+    setToken("test");
     navigate("/", { replace: true });
   };
 
