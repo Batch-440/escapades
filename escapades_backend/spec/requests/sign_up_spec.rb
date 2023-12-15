@@ -7,7 +7,8 @@ RSpec.describe 'User Signup', type: :request do
         email: 'test@example.com',
         first_name: 'John',
         last_name: 'Doe',
-        password: '123456789'
+        password: '123456789',
+        password_confirmation: '123456789'
       }
     }
   end
@@ -22,11 +23,10 @@ RSpec.describe 'User Signup', type: :request do
   end
 
   it 'returns an error for invalid signup data' do
-    invalid_params = valid_params.merge(user: { invalid_param: 'invalid_param' })
-
-    post '/signup', params: invalid_params
+    post '/signup', params: {user: { invalid_param: 'invalid_param' }}
 
     expect(response).to have_http_status(:unprocessable_entity)
     expect(JSON.parse(response.body)["status"]["message"]).to include("User couldn't be created successfully.")
   end
+
 end
