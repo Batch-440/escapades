@@ -4,7 +4,7 @@ RSpec.describe 'User Login', type: :request do
   let(:user) { create(:user) }
 
   it 'logs in an existing user and returns a bearer token' do
-    post '/login', params: { user: { email: user.email, password: 'password123' } }
+    post '/login', params: { user: { email: user.email, password: user.password } }
 
     expect(response).to have_http_status(:ok)
     expect(JSON.parse(response.body)["status"]["message"]).to eq('Logged in successfully.')
