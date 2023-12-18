@@ -35,6 +35,7 @@ gem "rack-cors"
 gem "devise", "~> 4.9"
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
+gem 'countries', require: 'countries/global'
 
 group :development, :test do
   gem "pry"
