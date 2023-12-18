@@ -14,12 +14,11 @@ RSpec.describe 'User Signup', type: :request do
   end
 
   it 'creates a new user account and returns a bearer token' do
-    post '/signup', params: valid_params
+    expect { post '/signup', params: valid_params }.to change(User, :count).by(1)
 
     expect(response).to have_http_status(:ok)
     expect(JSON.parse(response.body)["status"]["message"]).to eq('Signed up successfully.')
     expect(response.headers['authorization']).to start_with('Bearer ')
-    expect(User.count).to eq(1)
   end
 
   it 'returns an error for invalid signup data' do
