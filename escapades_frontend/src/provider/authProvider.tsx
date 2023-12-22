@@ -1,9 +1,15 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { User } from "@/types/model/user";
+
+type AuthState = {
+  user: User | null;
+  token: string | null;
+};
 
 type T = {
-  token: string | null;
-  setToken: (newToken: string) => void;
+  auth: AuthState;
+  setAuth: (newAuth: AuthState) => void;
 };
 
 const AuthContext = createContext<T>({} as T);
@@ -13,31 +19,39 @@ const AuthProvider = ({
 }: {
   children: JSX.Element[] | JSX.Element;
 }) => {
+  const initialState = {
+    user: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : "",
+    token: localStorage.getItem("token"),
+  };
   // State to hold the authentication token
-  const [token, setToken_] = useState(localStorage.getItem("token"));
+  const [auth, setAuth_] = useState<AuthState>(initialState);
 
   // Function to set the authentication token
-  const setToken = (newToken: string) => {
-    setToken_(newToken);
+  const setAuth = (newState: AuthState) => {
+    setAuth_(newState);
   };
 
   useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      localStorage.setItem("token", token);
+    if (auth.token && auth.user) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + auth.token;
+      localStorage.setItem("token", auth.token);
+      localStorage.setItem("user", JSON.stringify(auth.user));
     } else {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
-  }, [token]);
+  }, [auth]);
 
   // Memoized value of the authentication context
   const contextValue = useMemo(
     () => ({
-      token,
-      setToken,
+      auth,
+      setAuth,
     }),
-    [token]
+    [auth]
   );
 
   // Provide the authentication context to the children components

@@ -3,6 +3,7 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import classes from "./Navbar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "@/provider/authProvider";
 
 interface NavBarLinkProps {
   to: string;
@@ -22,10 +23,12 @@ const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { auth } = useAuth();
   const icon = isMenuOpen ? faXmark : faBars;
   const toggleIsMenuOpen = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const user = auth.user;
 
   return (
     <nav className={classes.Navbar}>
@@ -38,6 +41,7 @@ const Navbar = () => {
           isMenuOpen ? classes.Navbar__links__open : ""
         }`}
       >
+        {user && <p>{`Hello ${user?.first_name}`}</p>}
         <NavbarLink to="/register">register</NavbarLink>
         <NavbarLink to="/trip">organize a trip</NavbarLink>
       </ul>
