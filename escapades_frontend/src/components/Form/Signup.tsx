@@ -38,7 +38,6 @@ const SignUp = () => {
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
-
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {

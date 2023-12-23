@@ -2,7 +2,7 @@ import { useAuth } from "../../provider/authProvider";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import classes from "./Form.module.scss";
-import axios from "axios";
+import axiosInstance from "@/api/axios";
 
 type FormValues = {
   email: string;
@@ -15,7 +15,7 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    axios
+    axiosInstance
       .post("/login", {
         user: {
           ...data,
