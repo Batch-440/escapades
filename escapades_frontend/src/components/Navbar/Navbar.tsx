@@ -42,7 +42,7 @@ const Navbar = () => {
         }`}
       >
         {user && <p>{`Hello ${user?.first_name}`}</p>}
-        <NavbarLink to="/register">register</NavbarLink>
+        <NavbarLink to="/login">login</NavbarLink>
         <NavbarLink to="/trip">organize a trip</NavbarLink>
       </ul>
       <div className={classes.Navbar__icons}>

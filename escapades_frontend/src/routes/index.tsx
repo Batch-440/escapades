@@ -1,11 +1,7 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useRoutes,
-} from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
-import Login from "../pages/Login";
+import Login from "../pages/Login/Login";
 import Logout from "../components/Form/Logout";
 import Home from "@/pages/Home/Home";
 import Register from "@/pages/Register/Register";
