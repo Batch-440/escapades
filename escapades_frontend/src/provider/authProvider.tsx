@@ -1,6 +1,6 @@
-import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { User } from "@/types/model/user";
+import axiosInstance from "@/api/axios";
 
 type AuthState = {
   user: User | null;
@@ -19,10 +19,9 @@ const AuthProvider = ({
 }: {
   children: JSX.Element[] | JSX.Element;
 }) => {
+  const initialUser = localStorage.getItem("user");
   const initialState = {
-    user: localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : "",
+    user: initialUser ? JSON.parse(initialUser) : "",
     token: localStorage.getItem("token"),
   };
   // State to hold the authentication token
@@ -35,11 +34,11 @@ const AuthProvider = ({
 
   useEffect(() => {
     if (auth.token && auth.user) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + auth.token;
+      axiosInstance.defaults.headers.common["Authorization"] = auth.token;
       localStorage.setItem("token", auth.token);
       localStorage.setItem("user", JSON.stringify(auth.user));
     } else {
-      delete axios.defaults.headers.common["Authorization"];
+      delete axiosInstance.defaults.headers.common["Authorization"];
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     }
