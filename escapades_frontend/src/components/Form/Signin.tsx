@@ -31,23 +31,24 @@ const SignIn = () => {
   });
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    axiosInstance
-      .post("/login", {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      const response = await axiosInstance.post("/login", {
         user: {
           ...data,
         },
-      })
-      .then((response) => {
-        setAuth({
-          user: response.data.data,
-          token: response.headers.authorization,
-        });
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        window.alert(error.response.data.status.message);
       });
+      setAuth({
+        user: response.data.status.data.user,
+        token: response.headers.authorization,
+      });
+      navigate("/", { replace: true });
+    } catch (error) {
+      const err = error as {
+        response: { data: "string" };
+      };
+      window.alert(err.response.data);
+    }
   };
 
   return (
