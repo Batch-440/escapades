@@ -6,11 +6,13 @@ import axiosInstance from "@/api/axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import UTCDatePicker from "../UTCDatePicker";
+import CountrySelector from "../CountrySelector";
 
 type FormValues = {
   first_name?: string;
   last_name?: string;
   date_of_birth: Date;
+  country_code: string;
   email: string;
   password: string;
   password_confirmation: string;
@@ -21,6 +23,7 @@ const SignUp = () => {
     first_name: yup.string(),
     last_name: yup.string(),
     date_of_birth: yup.date().required(),
+    country_code: yup.string().required(),
     email: yup
       .string()
       .required("email is required")
@@ -38,6 +41,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors, isValid },
     control,
+    getValues,
   } = useForm<FormValues>({
     mode: "onChange",
     resolver: yupResolver(formSchema),
@@ -71,6 +75,7 @@ const SignUp = () => {
         <input
           id="firstName"
           className={classes.Form__input}
+          onClick={() => console.log(getValues())}
           {...register("first_name")}
         />
         <label htmlFor="lastName">Last Name :</label>
@@ -84,7 +89,7 @@ const SignUp = () => {
         <Controller
           control={control}
           name="date_of_birth"
-          render={({ field }) => (
+          render={({ field: { onChange, value } }) => (
             <>
               {errors.date_of_birth && (
                 <p className={classes.Form__error} role="alert">
@@ -96,10 +101,22 @@ const SignUp = () => {
                 placeholderText="Select date"
                 className={classes.Form__input}
                 wrapperClassName={classes.Form__datePickerWrapper}
-                onChange={field.onChange}
-                selected={field.value}
+                onChange={onChange}
+                selected={value}
               />
             </>
+          )}
+        />
+        <label htmlFor="Country">Country :</label>
+        <Controller
+          control={control}
+          name={"country_code"}
+          render={({ field: { onChange } }) => (
+            <CountrySelector
+              className={classes.Form__countryPicker}
+              id="Country"
+              onChange={onChange}
+            />
           )}
         />
 

@@ -27,4 +27,8 @@
   &__datePickerWrapper {
     @apply w-full;
   }
+
+  &__countryPicker {
+    @apply shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none;
+  }
 }
