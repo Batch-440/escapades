@@ -1,10 +1,11 @@
 import { useAuth } from "../../provider/authProvider";
 import { Link, useNavigate } from "react-router-dom";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import classes from "./Form.module.scss";
 import axiosInstance from "@/api/axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import FormInput from "./controlledFields/FormInput";
 
 type FormValues = {
   email: string;
@@ -21,11 +22,7 @@ const SignIn = () => {
   });
 
   const { setAuth } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     mode: "onChange",
     resolver: yupResolver(formSchema),
   });
@@ -52,40 +49,22 @@ const SignIn = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.Form}>
-      <label htmlFor="email">email :</label>
-      {errors.email && (
-        <p className={classes.Form__error} role="alert">
-          {errors.email.message}
-        </p>
-      )}
-      <input
-        id="email"
-        className={classes.Form__input}
-        {...register("email")}
-      />
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} className={classes.Form}>
+        <FormInput id="email" label="Email"></FormInput>
+        <FormInput id="password" label="password" type="password"></FormInput>
 
-      <label htmlFor="password">Password :</label>
-      {errors.password && (
-        <p className={classes.Form__error} role="alert">
-          {errors.password.message}
-        </p>
-      )}
-      <input
-        id="password"
-        className={classes.Form__input}
-        {...register("password")}
-      />
-      <input
-        type="submit"
-        value="submit"
-        className={classes.Form__submit}
-        disabled={!isValid}
-      />
-      <Link to="/register" className={classes.Form__link}>
-        You don't have an account ? Please register
-      </Link>
-    </form>
+        <input
+          type="submit"
+          value="submit"
+          className={classes.Form__submit}
+          disabled={!methods.formState.isValid}
+        />
+        <Link to="/register" className={classes.Form__link}>
+          You don't have an account ? Please register
+        </Link>
+      </form>
+    </FormProvider>
   );
 };
 
