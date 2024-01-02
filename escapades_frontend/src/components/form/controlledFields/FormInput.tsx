@@ -1,4 +1,5 @@
 import { Controller, useFormContext } from "react-hook-form";
+import { debounce } from "lodash";
 import classes from "../Form.module.scss";
 
 interface FormInputProps {
@@ -16,6 +17,10 @@ const FormInput: React.FC<FormInputProps> = ({
 }) => {
   const { control } = useFormContext();
 
+  const debouncedOnChange = debounce((onChange) => {
+    onChange();
+  }, 500);
+
   return (
     <>
       <label htmlFor={id}>{label} :</label>
@@ -32,7 +37,9 @@ const FormInput: React.FC<FormInputProps> = ({
           <input
             className={classes.Form__input}
             id={id}
-            onChange={onChange}
+            onChange={(e) => {
+              debouncedOnChange(() => onChange(e));
+            }}
             type={type}
           />
         )}
