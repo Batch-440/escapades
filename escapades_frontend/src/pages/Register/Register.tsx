@@ -1,4 +1,4 @@
-import SignUp from "@/components/Form/Signup";
+import SignUp from "@/components/form/Signup";
 import classes from "./Register.module.scss";
 
 const Register = () => {

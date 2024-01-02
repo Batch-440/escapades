@@ -1,4 +1,4 @@
-import SignIn from "@/components/Form/Signin";
+import SignIn from "@/components/form/Signin";
 import classes from "./Login.module.scss";
 
 const Login = () => {
