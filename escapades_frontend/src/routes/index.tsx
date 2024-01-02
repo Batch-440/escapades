@@ -2,7 +2,6 @@ import { useRoutes } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
 import Login from "../pages/Login/Login";
-import Logout from "../components/Form/Logout";
 import Home from "@/pages/Home/Home";
 import Register from "@/pages/Register/Register";
 import Trip from "@/pages/Trip";
@@ -28,10 +27,6 @@ const Routes = () => {
         {
           path: "/trip",
           element: <Trip />,
-        },
-        {
-          path: "/logout",
-          element: <Logout />,
         },
       ],
     },

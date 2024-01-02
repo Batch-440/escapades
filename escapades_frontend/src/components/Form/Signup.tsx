@@ -1,6 +1,12 @@
 import { useAuth } from "@/provider/authProvider";
 import { useNavigate } from "react-router-dom";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import {
+  SubmitHandler,
+  useForm,
+  Controller,
+  UseFormRegister,
+  Control,
+} from "react-hook-form";
 import classes from "./Form.module.scss";
 import axiosInstance from "@/api/axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +23,102 @@ type FormValues = {
   password: string;
   password_confirmation: string;
 };
+interface FormInputProps {
+  label: string;
+  id: keyof FormValues;
+  type?: string;
+  error?: string;
+  register: UseFormRegister<FormValues>;
+}
+
+const FormInput: React.FC<FormInputProps> = ({
+  label,
+  id,
+  type = "text",
+  error,
+  register,
+}) => (
+  <>
+    <label htmlFor={id}>{label} :</label>
+    {error && (
+      <p className={classes.Form__error} role="alert">
+        {error}
+      </p>
+    )}
+    <input
+      id={id}
+      className={classes.Form__input}
+      type={type}
+      {...register(id)}
+    />
+  </>
+);
+
+interface FormDatePickerProps {
+  label: string;
+  id: keyof FormValues;
+  error?: string;
+  control: Control<FormValues>;
+}
+
+const FormDatePicker: React.FC<FormDatePickerProps> = ({
+  label,
+  id,
+  error,
+  control,
+}) => (
+  <>
+    <label htmlFor={id}>{label} :</label>
+    <Controller
+      control={control}
+      name={id}
+      render={({ field: { onChange, value } }) => (
+        <>
+          {error && (
+            <p className={classes.Form__error} role="alert">
+              {error}
+            </p>
+          )}
+          <UTCDatePicker
+            id={id}
+            placeholderText={`Select ${label.toLowerCase()}`}
+            className={classes.Form__input}
+            wrapperClassName={classes.Form__datePickerWrapper}
+            onChange={onChange}
+            selected={value as Date}
+          />
+        </>
+      )}
+    />
+  </>
+);
+
+const FormCountrySelector: React.FC<FormDatePickerProps> = ({
+  label,
+  id,
+  error,
+  control,
+}) => (
+  <>
+    <label htmlFor={id}>{label} :</label>
+    <Controller
+      control={control}
+      name={id}
+      render={({ field: { onChange } }) => (
+        <CountrySelector
+          className={classes.Form__countryPicker}
+          id={id}
+          onChange={onChange}
+        />
+      )}
+    />
+    {error && (
+      <p className={classes.Form__error} role="alert">
+        {error}
+      </p>
+    )}
+  </>
+);
 
 const SignUp = () => {
   const formSchema = yup.object().shape({
@@ -41,7 +143,6 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors, isValid },
     control,
-    getValues,
   } = useForm<FormValues>({
     mode: "onChange",
     resolver: yupResolver(formSchema),
@@ -71,89 +172,42 @@ const SignUp = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.Form}>
-        <label htmlFor="firstName">First Name :</label>
-        <input
-          id="firstName"
-          className={classes.Form__input}
-          onClick={() => console.log(getValues())}
-          {...register("first_name")}
-        />
-        <label htmlFor="lastName">Last Name :</label>
-        <input
-          id="lastName"
-          className={classes.Form__input}
-          {...register("last_name")}
+        <FormInput label="First Name" id="first_name" register={register} />
+        <FormInput label="Last Name" id="last_name" register={register} />
+
+        <FormDatePicker
+          label="Date of Birth"
+          id="date_of_birth"
+          error={errors.date_of_birth?.message}
+          control={control}
         />
 
-        <label htmlFor="DateOfBirth">Date of birth :</label>
-        <Controller
+        <FormCountrySelector
+          label="Country"
+          id="country_code"
+          error={errors.country_code?.message}
           control={control}
-          name="date_of_birth"
-          render={({ field: { onChange, value } }) => (
-            <>
-              {errors.date_of_birth && (
-                <p className={classes.Form__error} role="alert">
-                  {errors.date_of_birth.message}
-                </p>
-              )}
-              <UTCDatePicker
-                id="DateOfBirth"
-                placeholderText="Select date"
-                className={classes.Form__input}
-                wrapperClassName={classes.Form__datePickerWrapper}
-                onChange={onChange}
-                selected={value}
-              />
-            </>
-          )}
-        />
-        <label htmlFor="Country">Country :</label>
-        <Controller
-          control={control}
-          name={"country_code"}
-          render={({ field: { onChange } }) => (
-            <CountrySelector
-              className={classes.Form__countryPicker}
-              id="Country"
-              onChange={onChange}
-            />
-          )}
         />
 
-        <label htmlFor="email">email :</label>
-        {errors.email && (
-          <p className={classes.Form__error} role="alert">
-            {errors.email.message}
-          </p>
-        )}
-        <input
+        <FormInput
+          label="Email"
           id="email"
-          className={classes.Form__input}
-          {...register("email")}
+          error={errors.email?.message}
+          register={register}
         />
-
-        <label htmlFor="password">Password :</label>
-        {errors.password && (
-          <p className={classes.Form__error} role="alert">
-            {errors.password.message}
-          </p>
-        )}
-        <input
+        <FormInput
+          label="Password"
           id="password"
-          className={classes.Form__input}
-          aria-invalid={errors.password ? "true" : "false"}
-          {...register("password")}
+          type="password"
+          error={errors.password?.message}
+          register={register}
         />
-        <label htmlFor="passwordConfirmation">Password Confirmation :</label>
-        {errors.password_confirmation && (
-          <p className={classes.Form__error} role="alert">
-            {errors.password_confirmation.message}
-          </p>
-        )}
-        <input
-          id="passwordConfirmation"
-          className={classes.Form__input}
-          {...register("password_confirmation")}
+        <FormInput
+          label="Password Confirmation"
+          id="password_confirmation"
+          type="password"
+          error={errors.password_confirmation?.message}
+          register={register}
         />
 
         <input
