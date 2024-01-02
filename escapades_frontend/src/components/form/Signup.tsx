@@ -101,7 +101,6 @@ const SignUp = () => {
           value="submit"
           className={classes.Form__submit}
           disabled={!methods.formState.isValid}
-          onClick={() => console.log(methods.getValues())}
         />
       </form>
     </FormProvider>

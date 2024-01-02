@@ -51,8 +51,17 @@ const SignIn = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className={classes.Form}>
-        <FormInput id="email" label="Email"></FormInput>
-        <FormInput id="password" label="password" type="password"></FormInput>
+        <FormInput
+          id="email"
+          label="Email"
+          error={methods.formState.errors.email?.message}
+        />
+        <FormInput
+          id="password"
+          label="password"
+          type="password"
+          error={methods.formState.errors.password?.message}
+        />
 
         <input
           type="submit"
