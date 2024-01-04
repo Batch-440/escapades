@@ -36,12 +36,16 @@ gem "devise", "~> 4.9"
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
 gem 'countries', require: 'countries/global'
+gem 'activestorage-cloudinary-service'
+gem 'cloudinary'
+
 
 group :development, :test do
   gem "pry"
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
+  gem 'dotenv-rails'
 end
 
 group :development do
