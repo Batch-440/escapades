@@ -73,7 +73,8 @@ const Navbar = () => {
               isMenuOpen ? classes.Navbar__logged_links__open : ""
             }`}
           >
-            <NavbarLink to="/trip">organize a trip</NavbarLink>
+            <NavbarLink to="/dashboard">organize a trip</NavbarLink>
+            <NavbarLink to="/profile">see my profile</NavbarLink>
             <NavbarLink to={`/logout`}>logout</NavbarLink>
           </ul>
           <div className={classes.Navbar__icons}>
