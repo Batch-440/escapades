@@ -1,9 +1,8 @@
 require 'faker'
 
 FactoryBot.define do
-  before(:create) do
-   password = Faker::Internet.password
-  end
+
+  password = Faker::Internet.password
 
   factory :user do
     email { Faker::Internet.email }
