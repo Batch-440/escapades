@@ -1,14 +1,15 @@
 require 'faker'
 
 FactoryBot.define do
-
-  password = Faker::Internet.password
-
   factory :user do
+    before(:create) do |user|
+      password = Faker::Internet.password
+      user.password = password
+      user.password_confirmation = password
+    end
+
     email { Faker::Internet.email }
-    first_name { Faker::Name.first_name }
+    first_name { @password }
     last_name { Faker::Name.last_name }
-    password { password }
-    password_confirmation { password }
   end
 end
