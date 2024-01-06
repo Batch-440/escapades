@@ -8,6 +8,7 @@ jobs:
     env:
       RAILS_ENV: test
       NODE_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     runs-on: ubuntu-latest # runner
     services:
       # Label used to access the service container
