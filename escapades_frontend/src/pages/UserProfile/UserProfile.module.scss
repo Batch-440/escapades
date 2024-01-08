@@ -1,0 +1,7 @@
+.UserProfile {
+  @apply text-center text-xl p-4 flex justify-center flex-col items-center;
+
+  &__avatar {
+    @apply w-40 h-40 m-4 rounded-full;
+  }
+}
