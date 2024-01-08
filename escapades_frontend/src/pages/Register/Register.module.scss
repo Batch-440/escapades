@@ -1,0 +1,7 @@
+.Register {
+  @apply flex flex-col items-center;
+
+  &__title {
+    @apply p-8 text-4xl;
+  }
+}

@@ -13,6 +13,7 @@
     }
 
     &__link {
+      @apply cursor-pointer;
       &__active {
         @apply bg-white text-gray-800;
       }
@@ -26,5 +27,9 @@
   &__icons {
     @apply visible p-2 cursor-pointer
            sm:hidden sm:p-0;
+  }
+
+  &__userName {
+    @apply cursor-default;
   }
 }
