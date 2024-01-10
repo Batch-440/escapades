@@ -18,7 +18,7 @@ const UserProfile = () => {
       {user && (
         <>
           <img className={classes.UserProfile__avatar} src={user.avatar_url} />
-          <p>{user.first_name}</p>
+          <p className={classes.UserProfile__firstName}>{user.first_name}</p>
           <p>{`${getUserAge(user.date_of_birth)} years old`}</p>
           <p>{`Country: ${getCountry(user.country_code)}`}</p>
         </>
