@@ -4,4 +4,8 @@
   &__avatar {
     @apply w-40 h-40 m-4 rounded-full;
   }
+
+  &__firstName {
+    @apply capitalize;
+  }
 }
