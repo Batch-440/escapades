@@ -9,5 +9,4 @@ RSpec.describe 'Current User', type: :request do
     get "/current_user", headers: { 'Authorization' => auth_token }
     expect(user).to have_attributes(JSON.parse(response.body))
   end
-
 end

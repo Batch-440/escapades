@@ -9,7 +9,7 @@ import FormInput from "./controlledFields/FormInput";
 import FormDatePicker from "./controlledFields/FormDatePicker";
 import FormCountrySelector from "./controlledFields/FormCountrySelector";
 
-type FormValues = {
+interface FormValues {
   first_name?: string;
   last_name?: string;
   date_of_birth: Date;
@@ -17,7 +17,7 @@ type FormValues = {
   email: string;
   password: string;
   password_confirmation: string;
-};
+}
 
 const SignUp = () => {
   const formSchema = yup.object().shape({
