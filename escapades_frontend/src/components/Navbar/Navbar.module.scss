@@ -7,8 +7,8 @@
   }
 
   &__logged_links {
-    @apply fixed right-0 top-[-100%] flex-col gap-4 p-4 text-sm  bg-gray-800 items-center
-    sm:text-base;
+    @apply fixed left-0 w-full text-center top-[-100%] flex-col gap-4 p-4 text-sm  bg-gray-800 items-center
+    sm:text-base sm:right-0 sm:left-auto sm:text-start sm:w-auto;
 
     transition: 300ms;
 

@@ -41,14 +41,9 @@ module EscapadesBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    #these disable rails session store
+    # these disable rails session store
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
-
-    if ['development', 'test'].include? ENV['RAILS_ENV']
-      Dotenv::Railtie.load
-    end
-    HOSTNAME = ENV['HOSTNAME']
   end
 end

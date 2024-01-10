@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/provider/authProvider";
 import axiosInstance from "@/api/axios";
+import Avatar from "../avatar/Avatar";
 
 interface NavBarLinkProps {
   to: string;
@@ -80,11 +81,7 @@ const Navbar = () => {
           <div className={classes.Navbar__icons}>
             <FontAwesomeIcon onClick={toggleIsMenuOpen} icon={icon} />
           </div>
-          <img
-            className={classes.Navbar__avatar}
-            src={user.avatar_url}
-            onClick={toggleIsMenuOpen}
-          />
+          <Avatar url={user.avatar_url} onClick={toggleIsMenuOpen}></Avatar>
         </>
       )}
       {!isUserLoggedIn && (

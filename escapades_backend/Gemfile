@@ -33,12 +33,11 @@ gem "bootsnap", require: false
 gem "rack-cors"
 
 gem "devise", "~> 4.9"
-gem 'devise-jwt'
-gem 'jsonapi-serializer'
-gem 'countries', require: 'countries/global'
-gem 'activestorage-cloudinary-service'
-gem 'cloudinary'
-
+gem "devise-jwt"
+gem "jsonapi-serializer"
+gem "countries", require: "countries/global"
+gem "activestorage-cloudinary-service"
+gem "cloudinary"
 
 group :development, :test do
   gem "pry"
@@ -56,5 +55,5 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 5.0'
+  gem "shoulda-matchers", "~> 5.0"
 end
