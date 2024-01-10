@@ -27,5 +27,4 @@ RSpec.describe 'User Signup', type: :request do
     expect(response).to have_http_status(:unprocessable_entity)
     expect(JSON.parse(response.body)["status"]["message"]).to include("User couldn't be created successfully.")
   end
-
 end

@@ -10,7 +10,7 @@ import FormDatePicker from "./controlledFields/FormDatePicker";
 import FormCountrySelector from "./controlledFields/FormCountrySelector";
 import FormFileInput from "./controlledFields/FormFileInput";
 
-type FormValues = {
+interface FormValues {
   first_name?: string;
   last_name?: string;
   date_of_birth: Date;
@@ -19,7 +19,7 @@ type FormValues = {
   password: string;
   password_confirmation: string;
   avatar: FileList;
-};
+}
 
 const SignUp = () => {
   const formSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
