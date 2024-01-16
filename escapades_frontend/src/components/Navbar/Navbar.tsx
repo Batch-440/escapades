@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/provider/authProvider";
 import axiosInstance from "@/api/axios";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import Avatar from "@/components/avatar/Avatar";
 
 interface NavBarLinkProps {
