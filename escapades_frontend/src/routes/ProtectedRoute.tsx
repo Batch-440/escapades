@@ -6,26 +6,23 @@ import { useEffect } from "react";
 export const ProtectedRoute = () => {
   const { auth, setAuth } = useAuth();
   const location = useLocation();
+  const token = auth.token;
+  const decodedToken = token && jwtDecode(token);
 
   // Check if the token is expired, it clears auth state thus logout user
   useEffect(() => {
-    const token = auth.token;
-    const decodedToken = token && jwtDecode(token);
-    if (
-      decodedToken &&
-      decodedToken.exp &&
-      decodedToken.exp * 1000 < Date.now()
-    ) {
+    if (!decodedToken || !decodedToken.exp) return;
+    if (decodedToken.exp * 1000 < Date.now()) {
       localStorage.clear();
       setAuth({
         user: null,
         token: null,
       });
     }
-  }, [setAuth, auth, location]);
+  }, [setAuth, decodedToken, location]);
 
   // Check if the user is authenticated
-  if (!auth.token) {
+  if (!token) {
     // If not authenticated, redirect to the login page
     return <Navigate to="/login" />;
   }
