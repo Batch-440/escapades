@@ -5,36 +5,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/provider/authProvider";
 import axiosInstance from "@/api/axios";
-import Avatar from "../avatar/Avatar";
+import Modal from "@/components/Modal/Modal";
+import Avatar from "@/components/avatar/Avatar";
 
 interface NavBarLinkProps {
   to: string;
   children: string;
+  setIsConfirmLogoutOpen?: (a: boolean) => void;
 }
 
-const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
+const NavbarLink: FC<NavBarLinkProps> = ({
+  to,
+  children,
+  setIsConfirmLogoutOpen,
+}) => {
   const resolvedPath = useResolvedPath(to);
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
-  const { setAuth } = useAuth();
-  const navigate = useNavigate();
-
-  const onLogout = async () => {
-    if (window.confirm("Do you want to log out ?")) {
-      try {
-        await axiosInstance.delete("/logout");
-        setAuth({
-          user: null,
-          token: null,
-        });
-        navigate("/", { replace: true });
-      } catch (error) {
-        const err = error as {
-          response: { data: "string" };
-        };
-        window.alert(err.response.data);
-      }
-    }
-  };
 
   return (
     <li
@@ -42,8 +28,8 @@ const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
         isActive ? classes.Navbar__logged_links__link__active : ""
       }`}
     >
-      {children === "logout" ? (
-        <p onClick={onLogout}>Logout</p>
+      {children === "logout" && setIsConfirmLogoutOpen ? (
+        <p onClick={() => setIsConfirmLogoutOpen(true)}>Logout</p>
       ) : (
         <Link to={to}>{children}</Link>
       )}
@@ -53,13 +39,32 @@ const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { auth } = useAuth();
-  const icon = isMenuOpen ? faXmark : faBars;
+  const [isConfirmLogoutOpen, setIsConfirmLogoutOpen] = useState(false);
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const burgerMenuIcon = isMenuOpen ? faXmark : faBars;
   const toggleIsMenuOpen = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const user = auth.user;
   const isUserLoggedIn = !!user;
+
+  const onLogout = async () => {
+    try {
+      await axiosInstance.delete("/logout");
+      setAuth({
+        user: null,
+        token: null,
+      });
+      setIsConfirmLogoutOpen(false);
+      navigate("/", { replace: true });
+    } catch (error) {
+      const err = error as {
+        response: { data: "string" };
+      };
+      window.alert(err.response.data);
+    }
+  };
 
   return (
     <nav className={classes.Navbar}>
@@ -76,12 +81,26 @@ const Navbar = () => {
           >
             <NavbarLink to="/dashboard">organize a trip</NavbarLink>
             <NavbarLink to="/profile">see my profile</NavbarLink>
-            <NavbarLink to={`/logout`}>logout</NavbarLink>
+            <NavbarLink
+              to={`/logout`}
+              setIsConfirmLogoutOpen={setIsConfirmLogoutOpen}
+            >
+              logout
+            </NavbarLink>
           </ul>
           <div className={classes.Navbar__icons}>
-            <FontAwesomeIcon onClick={toggleIsMenuOpen} icon={icon} />
+            <FontAwesomeIcon onClick={toggleIsMenuOpen} icon={burgerMenuIcon} />
           </div>
           <Avatar url={user.avatar_url} onClick={toggleIsMenuOpen}></Avatar>
+          {isConfirmLogoutOpen && (
+            <Modal
+              isOpen={isConfirmLogoutOpen}
+              setIsOpen={setIsConfirmLogoutOpen}
+              onConfirm={onLogout}
+              title={"Logout"}
+              description="Do you really want to log out ?"
+            />
+          )}
         </>
       )}
       {!isUserLoggedIn && (
