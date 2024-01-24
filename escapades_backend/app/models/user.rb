@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, on: :create
   validates :country_code, inclusion: { in: ISO3166::Country.all.map(&:alpha2) }, :allow_nil => true
 
+  has_one_attached :avatar
 end

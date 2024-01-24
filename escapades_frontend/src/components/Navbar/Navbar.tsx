@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/provider/authProvider";
 import axiosInstance from "@/api/axios";
+import Avatar from "../avatar/Avatar";
 
 interface NavBarLinkProps {
   to: string;
@@ -37,8 +38,8 @@ const NavbarLink: FC<NavBarLinkProps> = ({ to, children }) => {
 
   return (
     <li
-      className={`${classes.Navbar__links__link} ${
-        isActive ? classes.Navbar__links__link__active : ""
+      className={`${classes.Navbar__logged_links__link} ${
+        isActive ? classes.Navbar__logged_links__link__active : ""
       }`}
     >
       {children === "logout" ? (
@@ -58,30 +59,35 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const user = auth.user;
-  const firstLinkAction = user ? "logout" : "login";
+  const isUserLoggedIn = !!user;
 
   return (
     <nav className={classes.Navbar}>
       <Link to="/" className={classes.Navbar__title}>
         Escapades
       </Link>
-      <ul
-        onClick={toggleIsMenuOpen}
-        className={`${classes.Navbar__links} ${
-          isMenuOpen ? classes.Navbar__links__open : ""
-        }`}
-      >
-        {user && (
-          <p
-            className={classes.Navbar__userName}
-          >{`Hello ${user?.first_name}`}</p>
-        )}
-        <NavbarLink to={`/${firstLinkAction}`}>{firstLinkAction}</NavbarLink>
-        <NavbarLink to="/trip">organize a trip</NavbarLink>
-      </ul>
-      <div className={classes.Navbar__icons}>
-        <FontAwesomeIcon onClick={toggleIsMenuOpen} icon={icon} />
-      </div>
+      {isUserLoggedIn && (
+        <>
+          <ul
+            onClick={toggleIsMenuOpen}
+            className={`${classes.Navbar__logged_links} ${
+              isMenuOpen ? classes.Navbar__logged_links__open : ""
+            }`}
+          >
+            <NavbarLink to="/trip">organize a trip</NavbarLink>
+            <NavbarLink to={`/logout`}>logout</NavbarLink>
+          </ul>
+          <div className={classes.Navbar__icons}>
+            <FontAwesomeIcon onClick={toggleIsMenuOpen} icon={icon} />
+          </div>
+          <Avatar url={user.avatar_url} onClick={toggleIsMenuOpen}></Avatar>
+        </>
+      )}
+      {!isUserLoggedIn && (
+        <ul className={classes.Navbar__unlogged_links}>
+          <NavbarLink to={`/login`}>login</NavbarLink>
+        </ul>
+      )}
     </nav>
   );
 };

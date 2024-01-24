@@ -1,0 +1,14 @@
+.Avatar {
+  @apply w-12 h-12 m-4 rounded-full hidden
+         sm:block sm:cursor-pointer;
+}
+
+.DefaultImgContainer {
+  @apply w-12 h-12 m-4 rounded-full hidden border-white border-solid border-[1px]
+         sm:block sm:cursor-pointer;
+}
+
+.DefaultImg {
+  @apply w-7 h-7 rounded-full hidden absolute top-[28%] right-[26px]
+         sm:block sm:cursor-pointer;
+}

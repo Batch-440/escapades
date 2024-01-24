@@ -8,6 +8,7 @@ import * as yup from "yup";
 import FormInput from "./controlledFields/FormInput";
 import FormDatePicker from "./controlledFields/FormDatePicker";
 import FormCountrySelector from "./controlledFields/FormCountrySelector";
+import FormFileInput from "./controlledFields/FormFileInput";
 
 interface FormValues {
   first_name?: string;
@@ -17,10 +18,11 @@ interface FormValues {
   email: string;
   password: string;
   password_confirmation: string;
+  avatar: FileList;
 }
 
 const SignUp = () => {
-  const formSchema = yup.object().shape({
+  const formSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
     first_name: yup.string(),
     last_name: yup.string(),
     date_of_birth: yup.date().required(),
@@ -34,6 +36,7 @@ const SignUp = () => {
       .string()
       .required("Confirm Password is required")
       .oneOf([yup.ref("password")], "Passwords do not match"),
+    avatar: yup.mixed<FileList>().required(),
   });
 
   const { setAuth } = useAuth();
@@ -45,11 +48,15 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await axiosInstance.post("/signup", {
-        user: {
-          ...data,
+      const response = await axiosInstance.post(
+        "/signup",
+        {
+          user: {
+            ...data,
+          },
         },
-      });
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
       setAuth({
         user: response.data.data,
         token: response.headers.authorization,
@@ -94,6 +101,12 @@ const SignUp = () => {
           id="password_confirmation"
           type="password"
           error={methods.formState.errors.password_confirmation?.message}
+        />
+
+        <FormFileInput
+          label="Avatar"
+          id="avatar"
+          error={methods.formState.errors.avatar?.message}
         />
 
         <input
