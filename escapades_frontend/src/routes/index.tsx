@@ -4,7 +4,8 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import Login from "../pages/Login/Login";
 import Home from "@/pages/Home/Home";
 import Register from "@/pages/Register/Register";
-import Trip from "@/pages/Trip";
+import Dashboard from "@/pages//Dashboard/Dashboard";
+import UserProfile from "@/pages/UserProfile/UserProfile";
 
 const Routes = () => {
   const { auth } = useAuth();
@@ -25,8 +26,12 @@ const Routes = () => {
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: "/trip",
-          element: <Trip />,
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "/profile",
+          element: <UserProfile />,
         },
       ],
     },
